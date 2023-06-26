@@ -14,6 +14,8 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -37,6 +39,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Locale
+
 
 class MainActivity : AppCompatActivity(), ItemClickListener {
 
@@ -154,6 +158,28 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
             viewModel.deleteAll()
             //binding.progressBar.visibility = GONE
         }
+
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(arg0: Editable) {
+                // TODO Auto-generated method stub
+                val text: String = binding.etSearch.text.toString().toLowerCase(Locale.getDefault())
+                adapter.filterList(text)
+            }
+
+            override fun beforeTextChanged(
+                arg0: CharSequence, arg1: Int,
+                arg2: Int, arg3: Int
+            ) {
+                // TODO Auto-generated method stub
+            }
+
+            override fun onTextChanged(
+                arg0: CharSequence, arg1: Int, arg2: Int,
+                arg3: Int
+            ) {
+                // TODO Auto-generated method stub
+            }
+        })
 
     }
 

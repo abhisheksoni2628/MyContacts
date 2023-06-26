@@ -55,6 +55,22 @@ class ContactsAdapter(private var listener: ItemClickListener): RecyclerView.Ada
         notifyDataSetChanged()
     }
 
+    fun filterList(search: String){
+
+        ContactList.clear()
+
+        for (item in FullList){
+            if (item.contacts?.lowercase()?.contains(search.lowercase()) == true ||
+                item.number?.lowercase()?.contains(search.lowercase()) == true){
+
+                ContactList.add(item)
+
+            }
+        }
+        notifyDataSetChanged()
+
+    }
+
     class ViewHolder (val binding: ItemviewContactsBinding):RecyclerView.ViewHolder(binding.root)  {
         fun sendData(data: ContactsDto){
             binding.mydata = data
